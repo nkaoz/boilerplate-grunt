@@ -25,7 +25,7 @@ module.exports = (grunt)->
         files:[
           expand: true,
           cwd: 'src/jade/',
-          src: ['**/*.jade', '!**/layout/layout.jade'],
+          src: ['**/*.jade', '!/layout/layout.jade','!includes/*.jade'],
           dest: 'dist/',
           ext: '.html'
         ]
@@ -48,7 +48,7 @@ module.exports = (grunt)->
         files: ['src/coffee/*.coffee'],
         tasks: ['coffee','notify:notifycoffee']
       jadewatch: 
-        files: ['src/jade/**/*.jade','!src/jade/layout/layout.jade'],
+        files: ['src/jade/**/*.jade','!src/jade/layout/layout.jade','!src/jade/includes/*.jade'],
         tasks: ['jade','notify:notifyjade']
     connect:
       server:

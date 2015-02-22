@@ -1,0 +1,14 @@
+- var metaPage = {metaTitle: '',metaDescription:'',metaKeywords:'',metaAuthor:'',linkFavicon:'/images/favicon.ico'}
+- var metaFB = {metaTitle: '',metaDescription:'',metaType:'website',metaUrl:'',metaImage:''}
+    meta(charset='utf-8')
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name='viewport' ,content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
+    meta(name='description',content=metaPage.metaDescription)
+    meta(name='keywords',content=metaPage.metaKeywords)
+    meta(name='author',content=metaPage.metaAuthor)
+    meta(property='og:title', content=metaFB.metaTitle)
+    meta(property='og:description', content=metaFB.metaDescription)
+    meta(property='og:type', content=metaFB.metaType)
+    meta(property='og:url', content=metaFB.metaUrl)
+    meta(property='og:image', content=metaFB.metaImage)
+    link(rel='shortcut icon', type='image/x-icon', href=metaPage.linkFavicon)
