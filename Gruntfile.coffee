@@ -1,4 +1,9 @@
+
 pngquant = require 'imagemin-pngquant'
+mozjpeg = require 'imagemin-mozjpeg'
+gifsicle = require 'imagemin-gifsicle'
+svgo = require 'imagemin-svgo'
+
 
 module.exports = (grunt)->
   require('time-grunt')(grunt)
@@ -41,10 +46,10 @@ module.exports = (grunt)->
         tasks: ['sass','notify:notifysass']
       coffeewatch: 
         files: ['src/coffee/*.coffee'],
-        tasks: ['coffee']
+        tasks: ['coffee','notify:notifycoffee']
       jadewatch: 
         files: ['src/jade/**/*.jade','!src/jade/layout/layout.jade'],
-        tasks: ['jade']
+        tasks: ['jade','notify:notifyjade']
     connect:
       server:
         options:
@@ -56,25 +61,31 @@ module.exports = (grunt)->
         options:
           title: 'Task Complete',
           message: 'SASS and Uglify finished running'
+      notifycoffee:
+        options:
+          title: 'Task Complete',
+          message: 'coffee finished running'
+      notifyjade:
+         options:
+          title: 'Task Complete',
+          message: 'jade finished running'       
       notifyserver:
         options:
+          title: 'Task Complete',
           message: 'Server is ready!'
-      imagemin:
-        options:
-          optimizationLevel: 3,
-          use: [mozjpeg()]
-        files:
-          expand: true,                  
-          cwd: 'src/images',                   
-          src: ['*.{png,jpg,gif}'],   
-          dest: 'dist/images'
-    
-
-
-
-
-    
-
+    imagemin:
+      options:
+        optimizationLevel: 3
+        use: [mozjpeg(),
+              pngquant({ quality: '65-80', speed: 4 }),
+              gifsicle({ interlaced: true }),
+              svgo()]
+      files:
+        expand: true,                  
+        cwd: 'src/images',                   
+        src: ['*.{png,jpg,gif,svg}'],   
+        dest: 'dist/images'
+  
 
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-jade'
@@ -83,8 +94,6 @@ module.exports = (grunt)->
   grunt.loadNpmTasks 'grunt-contrib-connect'
   grunt.loadNpmTasks 'grunt-contrib-imagemin'
   grunt.loadNpmTasks 'grunt-notify'
-
-
 
 
 
